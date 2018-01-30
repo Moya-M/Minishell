@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_memalloc.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: mmoya <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 16:45:16 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/24 18:16:19 by mmoya        #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/24 18:16:19 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
-int		main(void)
+void	*ft_memalloc(size_t size)
 {
-	return (0);
+	void *r;
+
+	if (!(r = malloc(size)))
+		return (NULL);
+	ft_memset(r, 0, size);
+	return (r);
 }

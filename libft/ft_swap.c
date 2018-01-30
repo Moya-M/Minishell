@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_swap.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: mmoya <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 16:45:16 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/24 18:20:56 by mmoya        #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/24 18:20:56 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
-int		main(void)
+void	ft_swap(void *a, void *b, size_t size)
 {
-	return (0);
+	void *tmp;
+
+	if (!a || !b)
+		return ;
+	tmp = malloc(size);
+	ft_memcpy(tmp, a, size);
+	ft_memcpy(a, b, size);
+	ft_memcpy(b, tmp, size);
+	free(tmp);
 }

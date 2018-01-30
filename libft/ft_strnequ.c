@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_strnequ.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: mmoya <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 16:45:16 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/24 18:20:52 by mmoya        #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/24 18:20:52 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
-int		main(void)
+int		ft_strnequ(char const *s1, char const *s2, size_t n)
 {
+	if (!s1 || !s2)
+		return (-1);
+	if (ft_strncmp(s1, s2, n) == 0)
+		return (1);
 	return (0);
 }

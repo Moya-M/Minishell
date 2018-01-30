@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_putstr.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: mmoya <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 16:45:16 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/24 18:18:08 by mmoya        #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/26 23:24:07 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
-int		main(void)
+void	ft_putstr(char const *str)
 {
-	return (0);
+	if (str == NULL)
+		return ;
+	write(1, str, ft_strlen(str));
 }

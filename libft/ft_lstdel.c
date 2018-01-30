@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_lstdel.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: mmoya <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 16:45:16 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/24 18:15:59 by mmoya        #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/24 18:16:00 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
-int		main(void)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	return (0);
+	t_list *cur;
+	t_list *tmp;
+
+	cur = *alst;
+	while (cur != NULL)
+	{
+		tmp = cur->next;
+		del(cur->content, cur->content_size);
+		free(cur);
+		cur = tmp;
+	}
+	*alst = NULL;
 }

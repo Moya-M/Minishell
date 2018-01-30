@@ -1,19 +1,39 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_putnbr_fd.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: mmoya <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 16:45:16 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/24 18:18:05 by mmoya        #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/24 18:18:06 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
-int		main(void)
+void	ft_putnbr_fd(int n, int fd)
 {
-	return (0);
+	long l;
+	char c;
+
+	l = n;
+	c = '0';
+	if (l < 0)
+	{
+		write(fd, "-", 1);
+		l *= -1;
+	}
+	if (l > 9)
+	{
+		ft_putnbr_fd(l / 10, fd);
+		c += l % 10;
+		write(fd, &c, 1);
+	}
+	else
+	{
+		c += l;
+		write(fd, &c, 1);
+	}
 }

@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_memrchr.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: mmoya <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 16:45:16 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/24 18:16:47 by mmoya        #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/24 18:16:53 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
-int		main(void)
+void	*ft_memrchr(const void *dst, int c, size_t n)
 {
-	return (0);
+	size_t			i;
+	unsigned char	*ptd;
+
+	ptd = (unsigned char *)dst;
+	i = n;
+	while (i != 0)
+	{
+		if (ptd[i] == (unsigned char)c)
+			return (&ptd[i]);
+		i--;
+	}
+	if (ptd[0] == (unsigned char)c)
+		return (&ptd[0]);
+	return (NULL);
 }

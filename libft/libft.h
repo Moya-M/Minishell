@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   libft.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mmoya <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
+/*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 18:22:11 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 18:28:46 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/30 16:56:13 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,9 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
+# define BUFF_SIZE 5
+
 
 typedef struct		s_list
 {
@@ -114,5 +117,6 @@ int					ft_sqrt(int nb);
 int					ft_countdigit(long n);
 void				*ft_memrchr(const void *dst, int c, size_t n);
 char				*ft_ltoa(long n);
+int					get_next_line(const int fd, char **line);
 
 #endif

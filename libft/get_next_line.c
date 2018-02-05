@@ -6,12 +6,13 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/30 17:42:21 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/08 18:16:49 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/01 21:38:04 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
+#include <stdio.h>
 
 static size_t	ft_countc(char *str, char c)
 {
@@ -77,7 +78,7 @@ static int		handle_return(char **str, char **line)
 			i == ft_strlen(*str) ? ft_strdel(str) : ft_stros(str, i);
 	}
 	else
-		free(*str);
+		ft_strdel(str);
 	return (1);
 }
 
@@ -100,7 +101,7 @@ int				get_next_line(const int fd, char **line)
 		tmp = str;
 		if (!(str = ft_strdup(str + 1)))
 			return (-1);
-		free(tmp);
+		ft_strdel(&tmp);
 		if (str[0] == '\0')
 			ft_strdel(&str);
 		ft_strdel(line);

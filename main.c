@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/02 21:29:39 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/05 15:30:08 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,41 +18,36 @@ int		sh_builtin(char **arg, char ***env)
 {
 	if (!arg[0])
 		return (1);
-	if (ft_strnstr(arg[0], "cd", 2) && arg[0][2] == '\0')
-	{
-		sh_cd(arg[1], env);
-		return (1);
-	}
-	if (ft_strnstr(arg[0], "pwd", 3) && arg[0][3] == '\0')
-	{
-		sh_pwd(*env);
-		return (1);
-	}
-	if (ft_strnstr(arg[0], "env", 3) && arg[0][3] == '\0')
-	{
-		sh_env(*env);
-		return (1);
-	}
+	else if (ft_strnstr(arg[0], "cd", 2) && arg[0][2] == '\0')
+		return (sh_cd(arg[1], env));
+	else if (ft_strnstr(arg[0], "pwd", 3) && arg[0][3] == '\0')
+		return (sh_pwd(*env));
+	else if (ft_strnstr(arg[0], "env", 3) && arg[0][3] == '\0')
+		return (sh_env(*env));
+	else if (ft_strnstr(arg[0], "setenv", 6) && arg[0][6] == '\0')
+		return (sh_setenv(arg[1], arg[2], env));
+	else
+		return(sh_execute(arg, *env));
 	return (0);
 }
 
 void	sh_prompt(char **env)
 {
 	int		i;
+	char	*pwd;
+	char	*home;
 
 	i = 0;
-	if (env)
-		;
-	/*
-	while (!ft_strnstr(env[i], "HOME=", 5))
-		i++;
-	home = env[i];
-	i = 0;*/
-	while (!ft_strnstr(env[i], "PWD=", 4))
-		i++;
-	ft_putstr("\e[1m@ \e[34;1m");
-	ft_putstr(ft_strrchr(env[i], '/'));
-	ft_putstr("\e[31;1m ▶ \e[0m");
+	pwd = ft_strnew(PATH_MAX);
+	home = sh_getenv("HOME", env);
+	getcwd(pwd, PATH_MAX);
+	ft_putstr("\e[31;1m● \e[34m");
+	if (ft_strcmp(home, pwd))
+		ft_putstr(ft_strrchr(pwd, '/') + 1);
+	else
+		ft_putstr("~");
+	ft_putstr("\e[37m $> \e[0m");
+	ft_strdel(&pwd);
 }
 
 void	sh_cmd(char ***env)
@@ -71,9 +66,7 @@ void	sh_cmd(char ***env)
 	}
 	int i = 0;
 	while (arg[i])
-	{
 		ft_strdel(&arg[i++]);
-	}
 	free(arg);
 	// printf("%s\n", line);
 }

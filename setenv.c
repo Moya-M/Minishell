@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   env.c                                            .::    .:/ .      .::   */
+/*   setenv.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/01 15:58:55 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/03 16:45:40 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/06 15:16:47 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,8 +32,6 @@ static int		setenv_alloc(char *name, char *value, char **old, char ***ptr)
 	int		i;
 	int		j;
 
-	if (name || value)
-		;
 	i = 0;
 	j = 0;
 	tmp = *ptr;
@@ -56,23 +54,37 @@ static int		setenv_alloc(char *name, char *value, char **old, char ***ptr)
 	return (1);
 }
 
+int				setenv_modify(char *name, char *value, char ***ptr_env)
+{
+	char	**env;
+	char	*tmp;
+	int		i;
+
+	env = *ptr_env;
+	if ((i = sh_getenv_id(name, env)) != -1)
+	{
+		ft_putendl(env[i]);
+		ft_strdel(&env[i]);
+		tmp = ft_strjoin(name, "=");
+		env[i] = ft_strjoin(tmp, value);
+		ft_strdel(&tmp);
+		return (1);
+	}
+	return (0);
+}
+
 int				sh_setenv(char *name, char *value, char ***env)
 {
 	char	**tmp;
 	char	**old;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
+	if (setenv_modify(name, value, env))
+		return (1);
 	old = *env;
 	while (old[i])
-	{
-		if (ft_strnstr(old[i], name, ft_strlen(name)))
-			j++;
 		i++;
-	}
-	//i += j;
 	if (!(tmp = malloc(sizeof(char*) * (i + 1))))
 		return (-1);
 	if (setenv_alloc(name, value, old, &tmp) == -1)

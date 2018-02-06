@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/05 14:56:30 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/06 14:34:08 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,13 +21,8 @@ int		sh_cd(char *path, char ***env)
 
 	if (path == NULL)
 		path = sh_getenv("HOME", *env);
-	if (access(path, R_OK))
-	{
-		ft_putstr("cd: permission denied: ");
-		ft_putstr(path);
-		ft_putchar('\n');
+	if (!cd_error(path))
 		return (-1);
-	}
 	i = 0;
 	test = *env;
 	cur = ft_strnew(PATH_MAX);
@@ -80,20 +75,25 @@ int		sh_unsetenv(char **env)
 int		sh_execute(char **arg, char **env)
 {
 	pid_t	pid;
-	int		status;
+	char	*tmp;
 
+	tmp = ft_strjoin("/bin/", arg[0]);
+	if (access(tmp, 0) == -1)
+	{
+		ft_strdel(&tmp);
+		return (0);
+	}
 	pid = fork();
 	if (pid == 0)
 	{
-		execve(ft_strjoin("/bin/", arg[0]), arg, env);
-		ft_putstr("\nQWERTYU\n");
-		exit(1);
+		execve(tmp, arg, env);
+		ft_putstr("\e[31mFork: ERROR\e[0m\n");
 	}
-	else
+	ft_strdel(&tmp);
+	if (pid != 0)
 	{
-		waitpid(-1, &status, WNOHANG);
+		wait(NULL);
 		return (1);
 	}
-	ft_putstr("\nASDFGHJ\n");
 	return (-1);
 }

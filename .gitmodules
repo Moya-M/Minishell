@@ -1,0 +1,3 @@
+[submodule "Libft"]
+	path = libft
+	url = https://github.com/torox850/Libft.git

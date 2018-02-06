@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   minishell.h                                      .::    .:/ .      .::   */
+/*   error.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/31 15:34:47 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 15:09:28 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/05 18:39:21 by mmoya        #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/05 19:13:32 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "libft/libft.h"
-# include <sys/stat.h>
-# include <stdio.h>
-# include <limits.h>
+int		cd_error(char *path)
+{
+	struct stat path_stat;
 
-/*
-**  BUILTIN
-*/
-int		sh_cd(char *path, char ***env);
-int		cd_error(char *path);
-int		sh_pwd(char	**env);
-int		sh_env(char	**env);
-char	**sh_environ(char **environ);
-char	*sh_getenv(char *key, char **env);
-int		sh_setenv(char *name, char *value, char ***env);
-int		sh_getenv_id(char *key, char **env);
-int		sh_execute(char **arg, char **env);
-
-#endif
+	if (access(path, R_OK))
+	{
+		ft_putstr("cd: ");
+		if (access(path, 0))
+			ft_putstr("no such file or directory: ");
+		else
+			ft_putstr("permission denied: ");
+		ft_putendl(path);
+		return (-1);
+	}
+	stat(path, &path_stat);
+	if (S_ISREG(path_stat.st_mode))
+	{
+		ft_putstr("cd: not a directory: ");
+		ft_putendl(path);
+		return (-1);
+	}
+	return (1);
+}

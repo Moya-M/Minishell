@@ -6,13 +6,15 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/05 15:30:08 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/06 16:04:49 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <string.h>
+#include <curses.h>
+#include <term.h>
 
 int		sh_builtin(char **arg, char ***env)
 {
@@ -54,19 +56,27 @@ void	sh_cmd(char ***env)
 {
 	char	*line;
 	char	**arg;
+	int		i;
 
+	(void)env;
 	get_next_line(1, &line);
 	arg = ft_strsplit(line, ' ');
 	ft_strdel(&line);
-	if (!sh_builtin(arg, env))
+	/*if (!(i = sh_builtin(arg, env)))
 	{
 		ft_putstr("miniSH: command not found: ");
 		ft_putstr(arg[0]);
 		ft_putstr("\n");
-	}
-	int i = 0;
+	}*/
+	i = 0;
 	while (arg[i])
-		ft_strdel(&arg[i++]);
+	{
+		printf("%i %s\n", i, arg[i]);
+		ft_strdel(&arg[i]);
+		i++;
+	}
+	printf("%zu\n", sizeof(arg));
+	ft_strdel(&arg[i]);
 	free(arg);
 	// printf("%s\n", line);
 }

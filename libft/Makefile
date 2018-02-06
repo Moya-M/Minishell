@@ -1,15 +1,15 @@
 # **************************************************************************** #
-#                                                           LE - /             #
-#                                                               /              #
-#    Makefile                                         .::    .:/ .      .::    #
-#                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+      #
-#                                                  #+#   #+    #+    #+#       #
-#    Created: 2017/11/09 17:06:46 by mmoya        #+#   ##    ##    #+#        #
-#    Updated: 2018/02/01 18:25:37 by mmoya       ###    #+. /#+    ###.fr      #
-#                                                          /                   #
-#                                                         /                    #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmoya <mmoya@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2017/11/09 17:06:46 by mmoya             #+#    #+#              #
+#    Updated: 2018/02/06 16:29:34 by mmoya            ###   ########.fr        #
+#                                                                              #
 # **************************************************************************** #
+
 NAME = libft.a
 
 HEAD = libft.h
@@ -26,13 +26,9 @@ ft_tolower.c ft_toupper.c ft_strequ.c ft_strnequ.c ft_strsub.c ft_strjoin.c \
 ft_strtrim.c ft_strsplit.c ft_lstnew.c ft_lstiter.c ft_lstadd.c ft_lstmap.c \
 ft_lstdel.c ft_lstdelone.c ft_isblank.c ft_isupper.c ft_islower.c \
 ft_strndup.c ft_swap.c ft_print2dstr.c ft_sqrt.c ft_countdigit.c ft_ltoa.c \
-get_next_line.c
+ft_strrealloc.c get_next_line.c
 
 OBJ = $(SRC:.c=.o)
-
-CC = gcc
-
-FLAGS = -Wall -Wextra -Werror -Ofast
 
 all: $(NAME)
 
@@ -43,7 +39,7 @@ $(NAME): $(OBJ) $(HEAD) Makefile
 	@echo "#------------------------------#\033[0m"
 
 %.o: $(SRCS)%.c
-	@$(CC) $(FLAGS) -c $*.c
+	@gcc -Wall -Wextra -Werror -c $*.c
 	@echo "\033[1mCompiled :	\033[34m\"$*\"\033[0m"
 
 clean:

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_memcpy.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mmoya <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
+/*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 18:16:34 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 18:22:34 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/25 23:21:48 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,5 +27,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		ptd[i] = pts[i];
 		i++;
 	}
+	ptd = pts;
 	return (dst);
 }

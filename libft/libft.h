@@ -123,5 +123,7 @@ int					ft_sqrt(int nb);
 int					ft_countdigit(long n);
 void				*ft_memrchr(const void *dst, int c, size_t n);
 char				*ft_ltoa(long n);
+int					get_next_line(const int fd, char **line);
+
 
 #endif

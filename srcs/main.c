@@ -6,12 +6,12 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 17:52:39 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/07 22:59:36 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 #include <string.h>
 #include <curses.h>
 #include <term.h>
@@ -29,7 +29,7 @@ int		sh_builtin(char **arg, char ***env)
 	else if (ft_strnstr(arg[0], "setenv", 6) && arg[0][6] == '\0')
 		return (sh_setenv(arg[1], arg[2], env));
 	else
-		return(sh_execute(arg, *env));
+		return (sh_execute(arg, *env));
 	return (0);
 }
 
@@ -61,6 +61,10 @@ void	sh_cmd(char ***env)
 	get_next_line(1, &line);
 	arg = ft_strsplit(line, ' ');
 	ft_strdel(&line);
+	i = -1;
+	/*while (arg[++i])
+		if (arg[i][0] == '$')
+			arg[i] = sh_getenv(arg[i] + 1, *env);*/
 	if (!(i = sh_builtin(arg, env)))
 	{
 		ft_putstr("miniSH: command not found: ");
@@ -85,7 +89,6 @@ char	**sh_environ(char **environ)
 		i++;
 	if (!(env = (char**)malloc(sizeof(char*) * (i + 1))))
 		return (NULL);
-	printf("%i\n", i);
 	i = 0;
 	while (environ[i])
 	{

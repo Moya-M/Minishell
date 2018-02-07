@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   libft.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mmoya <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
+/*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 18:22:11 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 18:28:46 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/06 18:17:53 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -124,6 +124,5 @@ int					ft_countdigit(long n);
 void				*ft_memrchr(const void *dst, int c, size_t n);
 char				*ft_ltoa(long n);
 int					get_next_line(const int fd, char **line);
-
 
 #endif

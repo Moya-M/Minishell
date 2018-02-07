@@ -6,12 +6,12 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/01 15:58:55 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 15:16:47 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/06 18:10:38 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 static void		setenv_free(char **env)
 {
@@ -63,7 +63,6 @@ int				setenv_modify(char *name, char *value, char ***ptr_env)
 	env = *ptr_env;
 	if ((i = sh_getenv_id(name, env)) != -1)
 	{
-		ft_putendl(env[i]);
 		ft_strdel(&env[i]);
 		tmp = ft_strjoin(name, "=");
 		env[i] = ft_strjoin(tmp, value);

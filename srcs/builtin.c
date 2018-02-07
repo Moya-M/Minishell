@@ -6,12 +6,12 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 14:34:08 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/07 21:19:20 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int		sh_cd(char *path, char ***env)
 {
@@ -74,11 +74,48 @@ int		sh_unsetenv(char **env)
 
 int		sh_execute(char **arg, char **env)
 {
-	pid_t	pid;
-	char	*tmp;
+	char	**bin;
+	char	**aenv;
+	int		i;
+	int		y;
 
-	tmp = ft_strjoin("/bin/", arg[0]);
-	if (access(tmp, 0) == -1)
+	y = 0;
+	i = -1;
+	while (arg[y])
+		y++;
+	aenv = malloc(sizeof(char*) * (y + 1));
+	while (arg[++i])
+		aenv[i] = ft_strdup(arg[i][0] == '$' ? sh_getenv(arg[i] + 1, env) : arg[i]);
+	aenv[i] = NULL;
+	bin = ft_strsplit(sh_getenv("PATH", env), ':');
+	i = 0;
+	while (bin[i])
+	{
+		if (sh_execute_path(bin[i++], aenv, env))
+		{
+			i = -1;
+			while (aenv[++i])
+				ft_strdel(&aenv[i]);
+			free(aenv);
+			i = -1;
+			while (bin[++i])
+				ft_strdel(&bin[i]);
+			free(bin);
+			return (1);
+		}
+	}
+	return (0);
+
+	/*
+	pid_t		pid;
+	char		*tmp;
+	char		*tmp2;
+	struct stat	path_stat;
+
+	tmp2 = sh_getenv("PWD", env);
+	tmp = ft_strjoin(tmp, arg[0]);
+	stat(tmp, &path_stat);
+	if (access(tmp, 0) == -1 || S_ISREG(path_stat.st_mode) == 0)
 	{
 		ft_strdel(&tmp);
 		return (0);
@@ -89,11 +126,13 @@ int		sh_execute(char **arg, char **env)
 		execve(tmp, arg, env);
 		ft_putstr("\e[31mFork: ERROR\e[0m\n");
 	}
-	ft_strdel(&tmp);
 	if (pid != 0)
 	{
 		wait(NULL);
+		ft_strdel(&tmp);
 		return (1);
 	}
+	ft_strdel(&tmp);
 	return (-1);
+	*/
 }

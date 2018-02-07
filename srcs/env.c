@@ -6,12 +6,12 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 14:32:00 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 15:06:29 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/06 18:17:27 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 char	*sh_getenv(char *key, char **env)
 {
@@ -48,4 +48,3 @@ int		sh_getenv_id(char *key, char **env)
 		return (i);
 	return (-1);
 }
-

@@ -1,38 +1,46 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   error.c                                          .::    .:/ .      .::   */
+/*   execute.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/02/05 18:39:21 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 18:09:27 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/07 19:31:24 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		cd_error(char *path)
+int		sh_execute_path(char *path, char **arg, char **env)
 {
-	struct stat path_stat;
+	struct stat	path_stat;
+	char		*tmp;
+	char		*tmp2;
+	pid_t		pid;
 
-	if (access(path, R_OK))
+	tmp2 = ft_strjoin(path, "/");
+	tmp = ft_strjoin(tmp2, arg[0]);
+	ft_strdel(&tmp2);
+	stat(tmp, &path_stat);
+	if (access(tmp, 0) == -1 || S_ISREG(path_stat.st_mode) == 0)
 	{
-		ft_putstr("cd: ");
-		if (access(path, 0))
-			ft_putstr("no such file or directory: ");
-		else
-			ft_putstr("permission denied: ");
-		ft_putendl(path);
-		return (-1);
+		ft_strdel(&tmp);
+		return (0);
 	}
-	stat(path, &path_stat);
-	if (S_ISREG(path_stat.st_mode))
+	pid = fork();
+	if (pid == 0)
 	{
-		ft_putstr("cd: not a directory: ");
-		ft_putendl(path);
-		return (-1);
+		execve(tmp, arg, env);
+		ft_putstr("\e[31mFork: ERROR\e[0m\n");
 	}
-	return (1);
+	if (pid != 0)
+	{
+		wait(NULL);
+		ft_strdel(&tmp);
+		return (1);
+	}
+	ft_strdel(&tmp);
+	return (-1);
 }

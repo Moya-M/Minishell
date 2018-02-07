@@ -6,12 +6,12 @@
 #    By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/01/26 19:06:36 by mmoya        #+#   ##    ##    #+#        #
-#    Updated: 2018/02/06 18:03:06 by mmoya       ###    #+. /#+    ###.fr      #
+#    Updated: 2018/02/07 23:10:32 by mmoya       ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME = minish
+NAME = minishell
 
 SRCPATH = ./srcs/
 
@@ -19,7 +19,8 @@ SRCS =	main.c \
 		builtin.c \
 		env.c \
 		error.c \
-		setenv.c
+		setenv.c \
+		execute.c
 
 OBJ = $(SRCS:.c=.o)
 
@@ -31,9 +32,9 @@ LIBPATH = ./libft/
 
 LIB = libft.a
 
-MSG_LIB= "\033[1m o--->  \033[32m[ LIBFT ]\033[0m"
+MSG_LIB= "\033[1m o───>  \033[32m[ LIBFT ]\033[0m"
 
-MSG_LIBEND= "\033[1m o---<  \033[30m[ END ]\033[0m\n"
+MSG_LIBEND= "\033[1m o───<  \033[30m[ END ]\033[0m\n"
 
 .PHONY : all clean fclean re
 
@@ -50,7 +51,7 @@ $(LIBPATH)$(LIB):
 	@$(MAKE) -C $(LIBPATH)
 	@echo $(MSG_LIBEND)
 
-%.o: $(SRCPATH)%.c
+%.o: $(SRCPATH)%.c ./includes/minishell.h
 	@echo "\033[1mCompiled :	\033[34m\"$*\"\033[0m"
 	@gcc $(FLAGS) $(HEAD) -c $< -o $@
 

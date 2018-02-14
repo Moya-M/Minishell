@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 19:31:24 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/14 17:14:35 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,4 +43,19 @@ int		sh_execute_path(char *path, char **arg, char **env)
 	}
 	ft_strdel(&tmp);
 	return (-1);
+}
+
+int		sh_echo(char **arg, char **env)
+{
+	int i;
+
+	i = 1;
+	(void)env;
+	while (arg[i])
+	{
+		ft_putstr(arg[i++]);
+		ft_putstr(" ");
+	}
+	ft_putstr("\n");
+	return (1);
 }

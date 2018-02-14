@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/01 15:58:55 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 18:10:38 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/14 17:31:23 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,9 +19,7 @@ static void		setenv_free(char **env)
 
 	i = 0;
 	while (env[i])
-	{
 		ft_strdel(&env[i++]);
-	}
 	free(env);
 }
 

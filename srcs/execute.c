@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/14 17:14:35 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/14 20:27:16 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,10 +31,7 @@ int		sh_execute_path(char *path, char **arg, char **env)
 	}
 	pid = fork();
 	if (pid == 0)
-	{
 		execve(tmp, arg, env);
-		ft_putstr("\e[31mFork: ERROR\e[0m\n");
-	}
 	if (pid != 0)
 	{
 		wait(NULL);

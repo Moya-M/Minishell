@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/13 15:23:20 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/14 20:23:11 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,9 +28,11 @@ int		sh_builtin(char **arg, char ***env)
 		return (sh_env(*env));
 	else if (ft_strnstr(arg[0], "setenv", 6) && arg[0][6] == '\0')
 		return (sh_setenv(arg[1], arg[2], env));
+	else if (ft_strnstr(arg[0], "unsetenv", 8) && arg[0][8] == '\0')
+		return (sh_unsetenv(arg, env));
 	else if (ft_strnstr(arg[0], "echo", 6) && arg[0][4] == '\0')
 		return (sh_echo(arg, *env));
-	else
+	else if (sh_getenv("PATH", *env) != NULL)
 		return (sh_execute(arg, *env));
 	return (0);
 }
@@ -64,9 +66,6 @@ void	sh_cmd(char ***env)
 	arg = ft_strsplit(line, ' ');
 	ft_strdel(&line);
 	i = -1;
-	/*while (arg[++i])
-		if (arg[i][0] == '$')
-			arg[i] = sh_getenv(arg[i] + 1, *env);*/
 	if (!(i = sh_builtin(arg, env)))
 	{
 		ft_putstr("miniSH: command not found: ");

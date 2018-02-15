@@ -6,28 +6,27 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 13:45:03 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 15:58:05 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		sh_cd(char *path, char ***env)
+int		sh_cd(char **arg, char ***env)
 {
 	char	**test;
 	char	*cur;
 	int		i;
 
-	if (path == NULL)
-		path = sh_getenv("HOME", *env);
-	if (cd_error(path) != 1)
+	if (arg[1] == NULL)
+		arg[1] = sh_getenv("HOME", *env);
+	if (cd_error(arg[1]) != 1)
 		return (1);
-	dprintf(1, "FAR");
 	i = 0;
 	test = *env;
-	cur = ft_strnew(PATH_MAX);
-	chdir(path);
+	!(cur = ft_strnew(PATH_MAX)) ? sh_exit(-1, arg, *env) : 0;
+	chdir(arg[1]);
 	cur = getcwd(cur, PATH_MAX);
 	sh_setenv("PWD", cur, env);
 	ft_strdel(&cur);
@@ -81,7 +80,7 @@ int		sh_unsetenv(char **arg, char ***ptr)
 			if (env[i + j] == NULL)
 				env[i] = NULL;
 			else
-				env[i] = ft_strdup(env[i + j]);
+				!(env[i] = ft_strdup(env[i + j])) ? sh_exit(-1, arg, env) : 0;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 13:45:57 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 23:40:30 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ int		sh_builtin(char **arg, char ***env, int out)
 	if (*arg == NULL)
 		return (0);
 	else if (ft_strnstr(arg[0], "cd", 2) && arg[0][2] == '\0')
-		return (sh_cd(arg[1], env));
+		return (sh_cd(arg, env));
 	else if (ft_strnstr(arg[0], "pwd", 3) && arg[0][3] == '\0')
 		return (sh_pwd(*env));
 	else if (ft_strnstr(arg[0], "env", 3) && arg[0][3] == '\0')
@@ -46,7 +46,7 @@ void	sh_prompt(char **env)
 	char	*home;
 
 	i = 0;
-	pwd = ft_strnew(PATH_MAX);
+	!(pwd = ft_strnew(PATH_MAX)) ? sh_exit(-1, NULL, env) : 0;
 	home = sh_getenv("HOME", env);
 	getcwd(pwd, PATH_MAX);
 	ft_putstr("\e[31;1m● \e[34m");
@@ -66,7 +66,10 @@ int		sh_cmd(char ***env)
 	static int		out = 0;
 
 	get_next_line(1, &line);
-	arg = ft_strsplit(line, ' ');
+	!(arg = ft_strsplit(line, ' ')) ? sh_exit(-1, NULL, *env) : 0;
+	i = 0;
+	while (arg[i])
+		i++;
 	ft_strdel(&line);
 	if ((out = sh_builtin(arg, env, out)) == -1)
 	{
@@ -76,9 +79,8 @@ int		sh_cmd(char ***env)
 	}
 	if (out == -1)
 		out = 1;
-	i = -1;
-	while (arg[++i])
-		ft_strdel(&arg[i]);
+	while (arg[i])
+		ft_strdel(&arg[--i]);
 	free(arg);
 	return (out);
 }

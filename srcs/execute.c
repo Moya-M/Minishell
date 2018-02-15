@@ -6,16 +6,12 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 13:51:40 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 23:38:40 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-/*
-**	TODO Gestion des return de execve
-*/
 
 int		sh_execute_path(char *path, char **arg, char **env)
 {
@@ -67,14 +63,18 @@ int		sh_exit(int out, char **arg, char **env)
 	int i;
 
 	i = -1;
-	if (arg[1] != NULL)
-		out = ft_atoi(arg[1]);
-	while (arg[++i])
-		ft_strdel(&arg[i]);
+	if (arg != NULL)
+	{
+		while (env[++i])
+			ft_strdel(&env[i]);
+		if (arg[1] != NULL)
+			out = ft_atoi(arg[1]);
+	}
+	if (env != NULL)
+		while (arg[++i])
+			ft_strdel(&arg[i]);
 	free(arg);
 	i = -1;
-	while (env[++i])
-		ft_strdel(&env[i]);
 	free(env);
 	exit(out);
 	return (out);

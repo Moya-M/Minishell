@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/01 15:58:55 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/14 23:05:37 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/16 00:03:07 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,8 +62,8 @@ int				setenv_modify(char *name, char *value, char ***ptr_env)
 	if ((i = sh_getenv_id(name, env)) != -1)
 	{
 		ft_strdel(&env[i]);
-		tmp = ft_strjoin(name, "=");
-		env[i] = ft_strjoin(tmp, value);
+		!(tmp = ft_strjoin(name, "=")) ? sh_exit(-1, NULL, NULL) : 0;
+		!(env[i] = ft_strjoin(tmp, value)) ? sh_exit(-1, NULL, NULL) : 0;
 		ft_strdel(&tmp);
 		return (1);
 	}
@@ -82,8 +82,7 @@ int				sh_setenv(char *name, char *value, char ***env)
 	old = *env;
 	while (old[i])
 		i++;
-	if (!(tmp = malloc(sizeof(char*) * (i + 1))))
-		return (1);
+	!((tmp = malloc(sizeof(char*) * (i + 2)))) ? sh_exit(-1, NULL, NULL) : 0;
 	if (setenv_alloc(name, value, old, &tmp) == -1)
 		return (1);
 	*env = tmp;

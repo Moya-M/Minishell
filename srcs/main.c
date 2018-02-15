@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/14 20:23:11 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 13:45:57 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,10 +16,10 @@
 #include <curses.h>
 #include <term.h>
 
-int		sh_builtin(char **arg, char ***env)
+int		sh_builtin(char **arg, char ***env, int out)
 {
-	if (!arg[0])
-		return (1);
+	if (*arg == NULL)
+		return (0);
 	else if (ft_strnstr(arg[0], "cd", 2) && arg[0][2] == '\0')
 		return (sh_cd(arg[1], env));
 	else if (ft_strnstr(arg[0], "pwd", 3) && arg[0][3] == '\0')
@@ -30,11 +30,13 @@ int		sh_builtin(char **arg, char ***env)
 		return (sh_setenv(arg[1], arg[2], env));
 	else if (ft_strnstr(arg[0], "unsetenv", 8) && arg[0][8] == '\0')
 		return (sh_unsetenv(arg, env));
-	else if (ft_strnstr(arg[0], "echo", 6) && arg[0][4] == '\0')
+	else if (ft_strnstr(arg[0], "echo", 4) && arg[0][4] == '\0')
 		return (sh_echo(arg, *env));
+	else if (ft_strnstr(arg[0], "exit", 4) && arg[0][4] == '\0')
+		return(sh_exit(out, arg, *env));
 	else if (sh_getenv("PATH", *env) != NULL)
 		return (sh_execute(arg, *env));
-	return (0);
+	return (-1);
 }
 
 void	sh_prompt(char **env)
@@ -56,26 +58,29 @@ void	sh_prompt(char **env)
 	ft_strdel(&pwd);
 }
 
-void	sh_cmd(char ***env)
+int		sh_cmd(char ***env)
 {
-	char	*line;
-	char	**arg;
-	int		i;
+	char			*line;
+	char			**arg;
+	int				i;
+	static int		out = 0;
 
 	get_next_line(1, &line);
 	arg = ft_strsplit(line, ' ');
 	ft_strdel(&line);
-	i = -1;
-	if (!(i = sh_builtin(arg, env)))
+	if ((out = sh_builtin(arg, env, out)) == -1)
 	{
-		ft_putstr("miniSH: command not found: ");
+		ft_putstr("minishell: command not found: ");
 		ft_putstr(arg[0]);
 		ft_putstr("\n");
 	}
+	if (out == -1)
+		out = 1;
 	i = -1;
 	while (arg[++i])
 		ft_strdel(&arg[i]);
 	free(arg);
+	return (out);
 }
 
 char	**sh_environ(char **environ)
@@ -103,6 +108,7 @@ char	**sh_environ(char **environ)
 int		main(int ac, char **av, char **environ)
 {
 	int		i;
+	int		out;
 	char	**env;
 
 	env = sh_environ(environ);
@@ -112,7 +118,7 @@ int		main(int ac, char **av, char **environ)
 	while (1)
 	{
 		sh_prompt(env);
-		sh_cmd(&env);
+		out = sh_cmd(&env);
 	}
-	return (0);
+	return (out);
 }

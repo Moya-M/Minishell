@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/01 15:58:55 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/14 17:31:23 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/14 23:05:37 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,14 +78,14 @@ int				sh_setenv(char *name, char *value, char ***env)
 
 	i = 0;
 	if (setenv_modify(name, value, env))
-		return (1);
+		return (0);
 	old = *env;
 	while (old[i])
 		i++;
 	if (!(tmp = malloc(sizeof(char*) * (i + 1))))
-		return (-1);
+		return (1);
 	if (setenv_alloc(name, value, old, &tmp) == -1)
-		return (-1);
+		return (1);
 	*env = tmp;
-	return (1);
+	return (0);
 }

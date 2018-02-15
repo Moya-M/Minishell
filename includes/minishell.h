@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:47 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/14 17:39:04 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/14 23:54:10 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,7 @@ int		cd_error(char *path);
 int		sh_pwd(char	**env);
 int		sh_env(char	**env);
 int		sh_echo(char **arg, char **env);
+int		sh_exit(int out, char **arg, char **env);
 char	**sh_environ(char **environ);
 char	*sh_getenv(char *key, char **env);
 int		sh_setenv(char *name, char *value, char ***env);

@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/16 00:24:56 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/17 17:10:52 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,7 @@ int		sh_builtin(char **arg, char ***env, int out)
 	else if (ft_strnstr(arg[0], "echo", 4) && arg[0][4] == '\0')
 		return (sh_echo(arg, *env));
 	else if (ft_strnstr(arg[0], "exit", 4) && arg[0][4] == '\0')
-		return(sh_exit(out, arg, *env));
+		return (sh_exit(out, arg, *env));
 	else if (sh_getenv("PATH", *env) != NULL)
 		return (sh_execute(arg, *env));
 	return (-1);

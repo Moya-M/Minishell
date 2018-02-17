@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/17 16:41:55 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/17 16:59:33 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,8 +21,8 @@ int		sh_execute_path(char *path, char **arg, char **env)
 	pid_t		pid;
 	int			st;
 
-	tmp2 = ft_strjoin(path, "/");
-	tmp = ft_strjoin(tmp2, arg[0]);
+	!(tmp2 = ft_strjoin(path, "/")) ? sh_exit(-1, arg, env) : 0;
+	!(tmp = ft_strjoin(tmp2, arg[0])) ? sh_exit(-1, arg, env) : 0;
 	ft_strdel(&tmp2);
 	stat(tmp, &path_stat);
 	if (access(tmp, 0) == -1 || S_ISREG(path_stat.st_mode) == 0)
@@ -31,8 +31,7 @@ int		sh_execute_path(char *path, char **arg, char **env)
 		return (-1);
 	}
 	pid = fork();
-	if (pid == 0)
-		execve(tmp, arg, env);
+	(pid == 0) ? execve(tmp, arg, env) : 0;
 	if (pid != 0)
 	{
 		wait(&st);

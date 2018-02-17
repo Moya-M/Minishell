@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 15:58:05 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/17 17:01:25 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,9 +37,9 @@ int		sh_pwd(char **env)
 {
 	char	*cur;
 
-	if (env[0])
-		;
-	cur = ft_strnew(PATH_MAX + 1);
+	(void)env;
+	if (!(cur = ft_strnew(PATH_MAX + 1)))
+		sh_exit(-1, NULL, env);
 	cur = getcwd(cur, PATH_MAX);
 	ft_putstr(ft_strcat(cur, "\n"));
 	ft_strdel(&cur);

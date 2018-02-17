@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 23:38:40 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/17 16:41:55 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,13 +46,20 @@ int		sh_execute_path(char *path, char **arg, char **env)
 int		sh_echo(char **arg, char **env)
 {
 	int i;
+	int	j;
 
 	i = 1;
 	(void)env;
 	while (arg[i])
 	{
-		ft_putstr(arg[i++]);
-		ft_putstr(" ");
+		j = 0;
+		if (arg[i][0] == '"' || arg[i][0] == '\'' || arg[i][0] == '`')
+			j++;
+		ft_putstr(arg[i++] + j);
+		if (j)
+			ft_putstr("\b ");
+		else
+			ft_putstr(" ");
 	}
 	ft_putstr("\n");
 	return (0);
@@ -63,15 +70,17 @@ int		sh_exit(int out, char **arg, char **env)
 	int i;
 
 	i = -1;
-	if (arg != NULL)
+	if (env != NULL)
 	{
 		while (env[++i])
 			ft_strdel(&env[i]);
-		if (arg[1] != NULL)
-			out = ft_atoi(arg[1]);
+		if (arg != NULL)
+			if (arg[1] != NULL)
+				out = ft_atoi(arg[1]);
 	}
-	if (env != NULL)
-		while (arg[++i])
+	i = -1;
+	if (arg != NULL)
+		while (arg[++i] != NULL)
 			ft_strdel(&arg[i]);
 	free(arg);
 	i = -1;

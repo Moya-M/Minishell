@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 23:40:30 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/16 00:24:56 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,11 +96,12 @@ char	**sh_environ(char **environ)
 	while (environ[i])
 		i++;
 	if (!(env = (char**)malloc(sizeof(char*) * (i + 1))))
-		return (NULL);
+		sh_exit(-1, NULL, NULL);
 	i = 0;
 	while (environ[i])
 	{
-		env[i] = ft_strdup(environ[i]);
+		if (!(env[i] = ft_strdup(environ[i])))
+			sh_exit(-1, NULL, NULL);
 		i++;
 	}
 	env[i] = NULL;

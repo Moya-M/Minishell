@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/01 15:58:55 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/16 00:03:07 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/16 00:17:34 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,12 +40,12 @@ static int		setenv_alloc(char *name, char *value, char **old, char ***ptr)
 			j++;
 			continue;
 		}
-		tmp[i] = ft_strdup(old[i + j]);
+		if (!(tmp[i] = ft_strdup(old[i + j])))
+			sh_exit(-1, NULL, NULL);
 		i++;
 	}
-	tmp2 = ft_strjoin("=", value);
-	if (!(tmp[i] = ft_strjoin(name, tmp2)))
-		return (-1);
+	!(tmp2 = ft_strjoin("=", value)) ? sh_exit(-1, NULL, NULL) : 0;
+	!(tmp[i] = ft_strjoin(name, tmp2)) ? sh_exit(-1, NULL, NULL) : 0;
 	ft_strdel(&tmp2);
 	tmp[i + 1] = NULL;
 	setenv_free(old);

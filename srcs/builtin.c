@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 14:09:53 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 15:54:45 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,8 @@ int		sh_cd(char **arg, char ***env)
 
 	if (arg[1] == NULL)
 		arg[1] = sh_getenv("HOME", *env);
+	if (arg[1] == NULL)
+		arg[1] = ".";
 	if (cd_error(arg[1]) != 1)
 		return (1);
 	i = 0;

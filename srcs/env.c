@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 14:32:00 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 18:17:27 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 15:52:35 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ char	*sh_getenv(char *key, char **env)
 	size = ft_strlen(key);
 	while (env[i])
 	{
-		if (ft_strnstr(env[i], key, size))
+		if (ft_strnstr(env[i], key, size) && env[i][size] == '=')
 			break ;
 		i++;
 	}
@@ -40,7 +40,7 @@ int		sh_getenv_id(char *key, char **env)
 	size = ft_strlen(key);
 	while (env[i])
 	{
-		if (ft_strnstr(env[i], key, size))
+		if (ft_strnstr(env[i], key, size) && env[i][size] == '=')
 			break ;
 		i++;
 	}

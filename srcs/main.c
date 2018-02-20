@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 14:10:55 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 14:15:43 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -110,14 +110,12 @@ char	**sh_environ(char **environ)
 
 int		main(int ac, char **av, char **environ)
 {
-	int		i;
 	int		out;
 	char	**env;
 
+	(void)ac;
+	(void)av;
 	env = sh_environ(environ);
-	i = 0;
-	if (av[ac])
-		;
 	while (1)
 	{
 		sh_prompt(env);

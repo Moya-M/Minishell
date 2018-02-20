@@ -6,7 +6,7 @@
 #    By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/09 17:06:46 by mmoya        #+#   ##    ##    #+#        #
-#    Updated: 2018/02/15 15:44:16 by mmoya       ###    #+. /#+    ###.fr      #
+#    Updated: 2018/02/20 14:39:52 by mmoya       ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -30,24 +30,26 @@ ft_strrealloc.c get_next_line.c
 
 OBJ = $(SRC:.c=.o)
 
+BOX = "\033[1;42m┃┃\033[0m"
+
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEAD) Makefile
 	@ar rcs $(NAME) $(OBJ)
-	@echo "\033[1;42m┌──────────────────────────────┐\033[0m"
-	@echo "\033[1;42m│          libft DONE          │\033[0m"
-	@echo "\033[1;42m└──────────────────────────────┘\033[0m"
+	@echo "\033[1;42m┃┖─────────────────────────────┐\033[0m"
+	@echo "\033[1;42m┃          libft DONE          │\033[0m"
+	@echo "\033[1;42m┖──────────────────────────────┘\033[0m"
 
 %.o: $(SRCS)%.c
 	@gcc -Wall -Wextra -Werror -c $*.c
-	@echo "\033[1mCompiled :	\033[34m\"$*\"\033[0m"
+	@echo $(BOX) "\033[1mCompiled :	\033[34m\"$*\"\033[0m"
 
 clean:
 	@rm -f $(OBJ)
-	@echo "\033[1mRemoved :	\033[31m\"*.o\"\033[0m"
+	@echo $(BOX) "\033[1mRemoved :	\033[31m\"*.o\"\033[0m"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "\033[1mRemoved :	\033[31m$(NAME)\033[0m"
+	@echo $(BOX) "\033[1mRemoved :	\033[31m$(NAME)\033[0m"
 
 re: fclean all

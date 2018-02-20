@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/17 17:01:25 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 14:09:53 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,11 +66,13 @@ int		sh_unsetenv(char **arg, char ***ptr)
 	size_t	len;
 	char	**env;
 
-	i = 0;
+	i = -1;
 	j = 0;
+	if (arg[1] == NULL)
+		return (err_usage("unsetenv key"));
 	len = ft_strlen(arg[1]);
 	env = *ptr;
-	while (env[i])
+	while (env[++i])
 	{
 		if (ft_strncmp(env[i], arg[1], len) == 0 && env[i][len] == '=')
 			j++;
@@ -82,7 +84,6 @@ int		sh_unsetenv(char **arg, char ***ptr)
 			else
 				!(env[i] = ft_strdup(env[i + j])) ? sh_exit(-1, arg, env) : 0;
 		}
-		i++;
 	}
 	return (0);
 }

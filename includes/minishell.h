@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:47 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 15:56:31 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 13:14:19 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,5 +36,6 @@ int		sh_unsetenv(char **arg, char ***ptr);
 int		sh_getenv_id(char *key, char **env);
 int		sh_execute(char **arg, char **env);
 int		sh_execute_path(char *path, char **arg, char **env);
+int		err_usage(char *err);
 
 #endif

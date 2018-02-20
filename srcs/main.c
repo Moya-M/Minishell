@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/17 17:10:52 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 14:10:55 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,7 @@ int		sh_cmd(char ***env)
 	int				i;
 	static int		out = 0;
 
-	get_next_line(1, &line);
+	!(get_next_line(1, &line)) ? sh_exit(-1, NULL, *env) : 0;
 	!(arg = ft_strsplit(line, ' ')) ? sh_exit(-1, NULL, *env) : 0;
 	i = 0;
 	while (arg[i])
@@ -79,8 +79,8 @@ int		sh_cmd(char ***env)
 	}
 	if (out == -1)
 		out = 1;
-	while (arg[i])
-		ft_strdel(&arg[--i]);
+	while (--i >= 0)
+		ft_strdel(&arg[i]);
 	free(arg);
 	return (out);
 }

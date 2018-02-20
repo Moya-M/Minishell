@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/01 15:58:55 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/16 00:17:34 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 13:18:09 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,6 +77,8 @@ int				sh_setenv(char *name, char *value, char ***env)
 	int		i;
 
 	i = 0;
+	if (!name || !value)
+		return (err_usage("setenv key value"));
 	if (setenv_modify(name, value, env))
 		return (0);
 	old = *env;

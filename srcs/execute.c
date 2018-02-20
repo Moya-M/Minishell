@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/17 16:59:33 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 13:11:41 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,6 +62,13 @@ int		sh_echo(char **arg, char **env)
 	}
 	ft_putstr("\n");
 	return (0);
+}
+
+int		err_usage(char *err)
+{
+	ft_putstr("usage: ");
+	ft_putendl(err);
+	return (1);
 }
 
 int		sh_exit(int out, char **arg, char **env)

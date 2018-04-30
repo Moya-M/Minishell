@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 15:54:45 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/07 19:42:38 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,18 +17,25 @@ int		sh_cd(char **arg, char ***env)
 {
 	char	**test;
 	char	*cur;
+	char	*new;
 	int		i;
 
-	if (arg[1] == NULL)
-		arg[1] = sh_getenv("HOME", *env);
-	if (arg[1] == NULL)
-		arg[1] = ".";
-	if (cd_error(arg[1]) != 1)
+	new = arg[1];
+	if (new == NULL)
+		if ((new = sh_getenv("HOME", *env)) == 0)
+			new = ".";
+	if (ft_strcmp(new, "-") == 0)
+		new = sh_getenv("OLDPWD", *env);
+	if (cd_error(new) != 1)
 		return (1);
+	if (ft_strcmp(new, "-") == 0)
+		sh_pwd(*env);
 	i = 0;
 	test = *env;
 	!(cur = ft_strnew(PATH_MAX)) ? sh_exit(-1, arg, *env) : 0;
-	chdir(arg[1]);
+	cur = getcwd(cur, PATH_MAX);
+	sh_setenv("OLDPWD", cur, env);
+	chdir(new);
 	cur = getcwd(cur, PATH_MAX);
 	sh_setenv("PWD", cur, env);
 	ft_strdel(&cur);
@@ -54,10 +61,7 @@ int		sh_env(char **env)
 
 	i = 0;
 	while (env[i])
-	{
-		ft_putstr(env[i++]);
-		ft_putchar('\n');
-	}
+		ft_putendl(env[i++]);
 	return (0);
 }
 

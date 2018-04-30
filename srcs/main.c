@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 15:47:20 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/07 17:04:07 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,14 +49,16 @@ void	sh_prompt(char **env)
 	!(pwd = ft_strnew(PATH_MAX)) ? sh_exit(-1, NULL, env) : 0;
 	getcwd(pwd, PATH_MAX);
 	home = sh_getenv("HOME", env);
+	ft_putstr("\e[1;36m");
 	if (home == NULL)
 		home = ".";
-	ft_putstr("\e[31;1m● \e[34m");
-	if (ft_strcmp(home, pwd))
-		ft_putstr(ft_strrchr(pwd, '/') + 1);
-	else
+	if (ft_strcmp(home, pwd) == 0)
 		ft_putstr("~");
-	ft_putstr("\e[37m $> \e[0m");
+	else if (ft_strncmp(home, pwd, ft_strlen(home)))
+		ft_putstr(ft_strrchr(pwd, '/'));
+	else
+		ft_putstr(ft_strrchr(pwd, '/') + 1);
+	ft_putstr("\e[1;33m $ \e[0m");
 	ft_strdel(&pwd);
 }
 

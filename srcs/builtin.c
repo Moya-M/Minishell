@@ -15,31 +15,29 @@
 
 int		sh_cd(char **arg, char ***env)
 {
-	char	**test;
 	char	*cur;
 	char	*new;
-	int		i;
 
 	new = arg[1];
 	if (new == NULL)
 		if ((new = sh_getenv("HOME", *env)) == 0)
 			new = ".";
 	if (ft_strcmp(new, "-") == 0)
-		new = sh_getenv("OLDPWD", *env);
+		if ((new = sh_getenv("OLDPWD", *env)) == 0)
+			new = ".";
 	if (cd_error(new) != 1)
 		return (1);
-	if (ft_strcmp(new, "-") == 0)
+	cur = ft_strnew(PATH_MAX);
+	cur = sh_getenv("OLD", *env);
+	if (chdir(new) == 0)
+	{
+		cur = getcwd(cur, PATH_MAX);
+		sh_setenv("OLDPWD", sh_getenv("PWD", *env), env);
+		sh_setenv("PWD", cur, env);
 		sh_pwd(*env);
-	i = 0;
-	test = *env;
-	!(cur = ft_strnew(PATH_MAX)) ? sh_exit(-1, arg, *env) : 0;
-	cur = getcwd(cur, PATH_MAX);
-	sh_setenv("OLDPWD", cur, env);
-	chdir(new);
-	cur = getcwd(cur, PATH_MAX);
-	sh_setenv("PWD", cur, env);
-	ft_strdel(&cur);
-	return (0);
+		return (0);
+	}
+	return (1);
 }
 
 int		sh_pwd(char **env)

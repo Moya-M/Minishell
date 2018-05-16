@@ -27,12 +27,13 @@ int		sh_cd(char **arg, char ***env)
 			new = ".";
 	if (cd_error(new) != 1)
 		return (1);
-	cur = ft_strnew(PATH_MAX);
+	(cur = ft_strnew(PATH_MAX)) ? 0 : sh_exit(-1, arg, *env);
 	if (chdir(new) == 0)
 	{
 		cur = getcwd(cur, PATH_MAX);
-		sh_setenv("OLDPWD", sh_getenv("PWD", *env), env);
-		sh_setenv("PWD", cur, env);
+		if (sh_setenv("OLDPWD", sh_getenv("PWD", *env), env) ||
+		sh_setenv("PWD", cur, env))
+			sh_exit(-1, arg, *env);
 		ft_strcmp(new, "-") ? 0 : sh_pwd(*env);
 		ft_strdel(&cur);
 		return (0);
@@ -43,13 +44,16 @@ int		sh_cd(char **arg, char ***env)
 int		sh_pwd(char **env)
 {
 	char	*cur;
+	char	*tmp;
 
 	(void)env;
 	if (!(cur = ft_strnew(PATH_MAX + 1)))
 		sh_exit(-1, NULL, env);
 	cur = getcwd(cur, PATH_MAX);
-	ft_putstr(ft_strcat(cur, "\n"));
+	tmp = ft_strjoin(cur, "\n");
+	ft_putstr(tmp);
 	ft_strdel(&cur);
+	ft_strdel(&tmp);
 	return (0);
 }
 

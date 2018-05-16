@@ -26,7 +26,7 @@ OBJ = $(SRCS:.c=.o)
 
 HEAD = -I ./includes/
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 LIBPATH = ./libft/
 

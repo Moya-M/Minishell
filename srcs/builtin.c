@@ -28,13 +28,13 @@ int		sh_cd(char **arg, char ***env)
 	if (cd_error(new) != 1)
 		return (1);
 	cur = ft_strnew(PATH_MAX);
-	cur = sh_getenv("OLD", *env);
 	if (chdir(new) == 0)
 	{
 		cur = getcwd(cur, PATH_MAX);
 		sh_setenv("OLDPWD", sh_getenv("PWD", *env), env);
 		sh_setenv("PWD", cur, env);
-		sh_pwd(*env);
+		ft_strcmp(new, "-") ? 0 : sh_pwd(*env);
+		ft_strdel(&cur);
 		return (0);
 	}
 	return (1);

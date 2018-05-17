@@ -36,3 +36,14 @@ int		cd_error(char *path)
 	}
 	return (1);
 }
+
+char	*cd_checkenv(char *new, char ***env)
+{
+	if (new == NULL)
+		if ((new = sh_getenv("HOME", *env)) == 0)
+			new = ".";
+	if (ft_strcmp(new, "-") == 0)
+		if ((new = sh_getenv("OLDPWD", *env)) == 0)
+			new = ".";
+	return (new);
+}

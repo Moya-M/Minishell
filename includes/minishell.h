@@ -25,17 +25,19 @@
 
 int		sh_cd(char **arg, char ***env);
 int		cd_error(char *path);
+char	*cd_checkenv(char *new, char ***env);
 int		sh_pwd(char	**env);
 int		sh_env(char	**env);
 int		sh_echo(char **arg, char **env);
 int		sh_exit(int out, char **arg, char **env);
 char	**sh_environ(char **environ);
 char	*sh_getenv(char *key, char **env);
-int		sh_setenv(char *name, char *value, char ***env);
-int		sh_unsetenv(char **arg, char ***ptr);
+int		sh_setenv(char *name, char *value, char ***env, int cmd);
+int		sh_unsetenv(char *arg, char ***ptr);
 int		sh_getenv_id(char *key, char **env);
 int		sh_execute(char **arg, char **env);
 int		sh_execute_path(char *path, char **arg, char **env);
 int		err_usage(char *err);
+int		err_shell(char *err);
 
 #endif

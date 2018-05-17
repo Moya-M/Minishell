@@ -70,7 +70,7 @@ int				setenv_modify(char *name, char *value, char ***ptr_env)
 	return (0);
 }
 
-int				sh_setenv(char *name, char *value, char ***env)
+int				sh_setenv(char *name, char *value, char ***env, int cmd)
 {
 	char	**tmp;
 	char	**old;
@@ -78,7 +78,7 @@ int				sh_setenv(char *name, char *value, char ***env)
 
 	i = 0;
 	if (!name || !value)
-		return (err_usage("setenv key value"));
+		return (cmd ? err_usage("setenv key value") : 1);
 	if (setenv_modify(name, value, env))
 		return (0);
 	old = *env;

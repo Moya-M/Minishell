@@ -71,6 +71,13 @@ int		err_usage(char *err)
 	return (1);
 }
 
+int		err_shell(char *err)
+{
+	ft_putstr("minishell: ");
+	ft_putendl(err);
+	return (1);
+}
+
 int		sh_exit(int out, char **arg, char **env)
 {
 	int i;

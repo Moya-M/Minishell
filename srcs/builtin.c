@@ -16,24 +16,22 @@
 int		sh_cd(char **arg, char ***env)
 {
 	char	*cur;
+	char	*pwd;
 	char	*new;
 
 	new = arg[1];
-	if (new == NULL)
-		if ((new = sh_getenv("HOME", *env)) == 0)
-			new = ".";
-	if (ft_strcmp(new, "-") == 0)
-		if ((new = sh_getenv("OLDPWD", *env)) == 0)
-			new = ".";
+	new = cd_checkenv(new, env);
 	if (cd_error(new) != 1)
 		return (1);
 	(cur = ft_strnew(PATH_MAX)) ? 0 : sh_exit(-1, arg, *env);
 	if (chdir(new) == 0)
 	{
 		cur = getcwd(cur, PATH_MAX);
-		if (sh_setenv("OLDPWD", sh_getenv("PWD", *env), env) ||
-		sh_setenv("PWD", cur, env))
-			sh_exit(-1, arg, *env);
+		if (!(pwd = sh_getenv("PWD", *env)))
+			pwd = cur;
+		if (sh_setenv("OLDPWD", pwd, env, 0) ||
+		sh_setenv("PWD", cur, env, 0))
+			return (err_shell("cd: OLDPWD not set"));
 		ft_strcmp(new, "-") ? 0 : sh_pwd(*env);
 		ft_strdel(&cur);
 		return (0);
@@ -49,8 +47,10 @@ int		sh_pwd(char **env)
 	(void)env;
 	if (!(cur = ft_strnew(PATH_MAX + 1)))
 		sh_exit(-1, NULL, env);
-	cur = getcwd(cur, PATH_MAX);
-	tmp = ft_strjoin(cur, "\n");
+	if (!(cur = getcwd(cur, PATH_MAX)))
+		sh_exit(-1, NULL, env);
+	if (!(tmp = ft_strjoin(cur, "\n")))
+		sh_exit(-1, NULL, env);
 	ft_putstr(tmp);
 	ft_strdel(&cur);
 	ft_strdel(&tmp);
@@ -67,7 +67,7 @@ int		sh_env(char **env)
 	return (0);
 }
 
-int		sh_unsetenv(char **arg, char ***ptr)
+int		sh_unsetenv(char *arg, char ***ptr)
 {
 	int		i;
 	int		j;
@@ -76,13 +76,13 @@ int		sh_unsetenv(char **arg, char ***ptr)
 
 	i = -1;
 	j = 0;
-	if (arg[1] == NULL)
+	if (arg == NULL)
 		return (err_usage("unsetenv key"));
-	len = ft_strlen(arg[1]);
+	len = ft_strlen(arg);
 	env = *ptr;
 	while (env[++i])
 	{
-		if (ft_strncmp(env[i], arg[1], len) == 0 && env[i][len] == '=')
+		if (ft_strncmp(env[i], arg, len) == 0 && env[i][len] == '=')
 			j++;
 		if (j)
 		{
@@ -90,7 +90,7 @@ int		sh_unsetenv(char **arg, char ***ptr)
 			if (env[i + j] == NULL)
 				env[i] = NULL;
 			else
-				!(env[i] = ft_strdup(env[i + j])) ? sh_exit(-1, arg, env) : 0;
+				!(env[i] = ft_strdup(env[i + j])) ? sh_exit(-1, NULL, env) : 0;
 		}
 	}
 	return (0);

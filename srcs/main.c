@@ -27,9 +27,9 @@ int		sh_builtin(char **arg, char ***env, int out)
 	else if (ft_strnstr(arg[0], "env", 3) && arg[0][3] == '\0')
 		return (sh_env(*env));
 	else if (ft_strnstr(arg[0], "setenv", 6) && arg[0][6] == '\0')
-		return (sh_setenv(arg[1], arg[2], env));
+		return (sh_setenv(arg[1], arg[2], env, 1));
 	else if (ft_strnstr(arg[0], "unsetenv", 8) && arg[0][8] == '\0')
-		return (sh_unsetenv(arg, env));
+		return (sh_unsetenv(arg[1], env));
 	else if (ft_strnstr(arg[0], "echo", 4) && arg[0][4] == '\0')
 		return (sh_echo(arg, *env));
 	else if (ft_strnstr(arg[0], "exit", 4) && arg[0][4] == '\0')

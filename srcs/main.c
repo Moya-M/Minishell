@@ -34,6 +34,9 @@ int		sh_builtin(char **arg, char ***env, int out)
 		return (sh_echo(arg, *env));
 	else if (ft_strnstr(arg[0], "exit", 4) && arg[0][4] == '\0')
 		return (sh_exit(out, arg, *env));
+	else if (ft_strnstr(arg[0], "./", 2) || ft_strnstr(arg[0], "../", 3) ||
+	ft_strnstr(arg[0], "/", 1))
+		return (sh_execute_path(NULL, arg, *env));
 	else if (sh_getenv("PATH", *env) != NULL)
 		return (sh_execute(arg, *env));
 	return (-1);

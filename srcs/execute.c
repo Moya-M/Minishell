@@ -13,17 +13,29 @@
 
 #include "../includes/minishell.h"
 
-int		sh_execute_path(char *path, char **arg, char **env)
+static char	*execute_path_check(char *path, char **arg, char **env)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	if (path)
+	{
+		!(tmp2 = ft_strjoin(path, "/")) ? sh_exit(-1, arg, env) : 0;
+		!(tmp = ft_strjoin(tmp2, arg[0])) ? sh_exit(-1, arg, env) : 0;
+		ft_strdel(&tmp2);
+	}
+	else
+		tmp = ft_strdup(arg[0]);
+}
+
+int			sh_execute_path(char *path, char **arg, char **env)
 {
 	struct stat	path_stat;
 	char		*tmp;
-	char		*tmp2;
 	pid_t		pid;
 	int			st;
 
-	!(tmp2 = ft_strjoin(path, "/")) ? sh_exit(-1, arg, env) : 0;
-	!(tmp = ft_strjoin(tmp2, arg[0])) ? sh_exit(-1, arg, env) : 0;
-	ft_strdel(&tmp2);
+	tmp = execute_path_check(path, arg, env);
 	stat(tmp, &path_stat);
 	if (access(tmp, 0) == -1 || S_ISREG(path_stat.st_mode) == 0)
 	{
@@ -42,7 +54,7 @@ int		sh_execute_path(char *path, char **arg, char **env)
 	return (-1);
 }
 
-int		sh_echo(char **arg, char **env)
+int			sh_echo(char **arg, char **env)
 {
 	int i;
 	int	j;
@@ -64,21 +76,7 @@ int		sh_echo(char **arg, char **env)
 	return (0);
 }
 
-int		err_usage(char *err)
-{
-	ft_putstr("usage: ");
-	ft_putendl(err);
-	return (1);
-}
-
-int		err_shell(char *err)
-{
-	ft_putstr("minishell: ");
-	ft_putendl(err);
-	return (1);
-}
-
-int		sh_exit(int out, char **arg, char **env)
+int			sh_exit(int out, char **arg, char **env)
 {
 	int i;
 

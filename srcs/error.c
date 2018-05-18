@@ -13,6 +13,20 @@
 
 #include "../includes/minishell.h"
 
+int		err_usage(char *err)
+{
+	ft_putstr("usage: ");
+	ft_putendl(err);
+	return (1);
+}
+
+int		err_shell(char *err)
+{
+	ft_putstr("minishell: ");
+	ft_putendl(err);
+	return (1);
+}
+
 int		cd_error(char *path)
 {
 	struct stat path_stat;

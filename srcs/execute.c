@@ -23,9 +23,9 @@ static char	*execute_path_check(char *path, char **arg, char **env)
 		!(tmp2 = ft_strjoin(path, "/")) ? sh_exit(-1, arg, env) : 0;
 		!(tmp = ft_strjoin(tmp2, arg[0])) ? sh_exit(-1, arg, env) : 0;
 		ft_strdel(&tmp2);
+		return (tmp);
 	}
-	else
-		tmp = ft_strdup(arg[0]);
+	return (ft_strdup(arg[0]));
 }
 
 int			sh_execute_path(char *path, char **arg, char **env)

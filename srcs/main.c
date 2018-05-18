@@ -81,8 +81,7 @@ int		sh_cmd(char ***env)
 	if ((out = sh_builtin(arg, env, out)) == -1)
 	{
 		ft_putstr("minishell: command not found: ");
-		ft_putstr(arg[0]);
-		ft_putstr("\n");
+		ft_putendl(arg[0]);
 	}
 	if (out == -1)
 		out = 1;

@@ -73,7 +73,7 @@ int		sh_cmd(char ***env)
 	static int		out = 0;
 
 	!(get_next_line(1, &line)) ? sh_exit(-1, NULL, *env) : 0;
-	!(arg = ft_strsplit(line, ' ')) ? sh_exit(-1, NULL, *env) : 0;
+	!(arg = ft_strsplittrim(line, ' ')) ? sh_exit(-1, NULL, *env) : 0;
 	i = 0;
 	while (arg[i])
 		i++;

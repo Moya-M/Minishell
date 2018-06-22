@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/07 19:42:38 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/22 14:56:53 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,7 +103,7 @@ int		sh_execute(char **arg, char **env)
 	int		r;
 
 	i = 0;
-	bin = ft_strsplit(sh_getenv("PATH", env), ':');
+	!(bin = ft_strsplit(sh_getenv("PATH", env), ':')) ? sh_exit(-1, arg, env): 0;
 	while (bin[i])
 	{
 		if ((r = sh_execute_path(bin[i++], arg, env)) != -1)

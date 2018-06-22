@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/05 15:32:36 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/22 14:44:37 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,7 @@ int			sh_execute_path(char *path, char **arg, char **env)
 	pid_t		pid;
 	int			st;
 
-	tmp = execute_path_check(path, arg, env);
+	!(tmp = execute_path_check(path, arg, env)) ? sh_exit(-1, arg, env) : 0;
 	stat(tmp, &path_stat);
 	if (access(tmp, 0) == -1 || S_ISREG(path_stat.st_mode) == 0)
 	{

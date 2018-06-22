@@ -6,12 +6,13 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 18:20:54 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/25 16:56:01 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/22 17:02:55 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int	ft_countwords(char const *s, char c)
 {
@@ -20,14 +21,17 @@ static int	ft_countwords(char const *s, char c)
 
 	i = 0;
 	len = 0;
-	while (s[i] == c || s[i] == ' ' || s[i] == '\t')
-		i++;
 	while (s[i])
 	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		while (s[i] == c || s[i] == ' ' || s[i] == '\t')
+			i++;
+		if (s[i] != c && s[i] != ' ' && s[i] != '\t' && s[i] != '\0')
 			len++;
-		i++;
+		dprintf(1, "%x\n", s[i]);
+		while (s[i] != c && s[i] != ' ' && s[i] != '\t' && s[i] != '\0')
+			i++;
 	}
+	dprintf(1, "LEN = %i\n", len);
 	return (len);
 }
 

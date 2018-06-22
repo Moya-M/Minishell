@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 18:22:11 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/25 16:56:05 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/22 18:10:28 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -124,6 +124,7 @@ int					ft_countdigit(long n);
 void				*ft_memrchr(const void *dst, int c, size_t n);
 char				*ft_ltoa(long n);
 char				**ft_strsplittrim(char const *s, char c);
+char				**ft_strsplittrimq(char const *s, char c);
 int					get_next_line(const int fd, char **line);
 
 #endif

@@ -6,15 +6,12 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/25 16:55:56 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/22 18:36:40 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <string.h>
-#include <curses.h>
-#include <term.h>
 
 int		sh_builtin(char **arg, char ***env, int out)
 {

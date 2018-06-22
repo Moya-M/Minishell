@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/22 14:44:37 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/22 17:55:33 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,23 +55,49 @@ int			sh_execute_path(char *path, char **arg, char **env)
 	return (-1);
 }
 
+static int	quote_handler(int q, char c)
+{
+	if (c == '"')
+		q = 1;
+	else if (c == '\'')
+		q = 2;
+	else if (c == '`')
+		q = 3;
+	else if (q != 0)
+	{
+		if ((q == 1 && c == '"') || (q == 2 && c == '\'') ||
+		(q == 3 && c == '`'))
+			q = 0;
+	}
+	return (q);
+}
+
 int			sh_echo(char **arg, char **env)
 {
 	int i;
 	int	j;
+	int q;
 
 	i = 1;
+	q = 0;
 	(void)env;
 	while (arg[i])
 	{
 		j = 0;
-		if (arg[i][0] == '"' || arg[i][0] == '\'' || arg[i][0] == '`')
-			j++;
-		ft_putstr(arg[i++] + j);
-		if (j)
-			ft_putstr("\b ");
-		else
-			ft_putstr(" ");
+		while (arg[i][j])
+		{
+			q = quote_handler(q, arg[i][j]);
+			if (q && quote_handler(0, arg[i][j]))
+			{
+				//j++;
+				dprintf(1, "\e[7m");
+				ft_putchar(arg[i][j++]);
+				dprintf(1, "\e[0m");
+				continue ;
+			}
+			ft_putchar(arg[i][j++]);
+		}
+		i++;
 	}
 	ft_putstr("\n");
 	return (0);

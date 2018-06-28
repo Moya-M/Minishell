@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/22 16:25:57 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/29 00:13:34 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,9 +18,9 @@ int		sh_cd(char **arg, char ***env)
 	char	*cur;
 	char	*pwd;
 	char	*new;
+	int		b;
 
-	new = arg[1];
-	new = cd_checkenv(new, env);
+	new = cd_checkenv(arg, env, &b);
 	if (cd_error(new) != 1)
 		return (1);
 	(cur = ft_strnew(PATH_MAX)) ? 0 : sh_exit(-1, arg, *env);
@@ -32,7 +32,7 @@ int		sh_cd(char **arg, char ***env)
 		if (sh_setenv("OLDPWD", pwd, env, 0) ||
 		sh_setenv("PWD", cur, env, 0))
 			return (err_shell("cd: OLDPWD not set"));
-		ft_strcmp(new, "-") ? 0 : sh_pwd(*env);
+		b ? sh_pwd(*env) : 0;
 		ft_strdel(&cur);
 		return (0);
 	}

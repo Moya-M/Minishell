@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 18:39:21 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 18:09:27 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/29 00:12:42 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,13 +51,25 @@ int		cd_error(char *path)
 	return (1);
 }
 
-char	*cd_checkenv(char *new, char ***env)
+char	*cd_checkenv(char **arg, char ***env, int *b)
 {
+	char	*new;
+
+	*b = 0;
+	new = arg[1];
 	if (new == NULL)
 		if ((new = sh_getenv("HOME", *env)) == 0)
 			new = ".";
 	if (ft_strcmp(new, "-") == 0)
-		if ((new = sh_getenv("OLDPWD", *env)) == 0)
-			new = ".";
+	{
+		*b = 1;
+		ft_strdel(&new);
+		if ((new = ft_strdup(sh_getenv("OLDPWD", *env))) == 0)
+		{
+			new = ft_strdup(".");
+			arg[1] = new;
+		}
+		arg[1] = new;
+	}
 	return (new);
 }

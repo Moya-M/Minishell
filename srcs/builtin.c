@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 00:13:34 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/11 17:39:18 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,23 +67,20 @@ int		sh_env(char **env)
 	return (0);
 }
 
-int		sh_unsetenv(char *arg, char ***ptr)
+int		sh_unsetenv(char *arg, char **env)
 {
 	int		i;
 	int		j;
 	size_t	len;
-	char	**env;
 
 	i = -1;
 	j = 0;
 	if (arg == NULL)
 		return (err_usage("unsetenv key"));
 	len = ft_strlen(arg);
-	env = *ptr;
 	while (env[++i])
 	{
-		if (ft_strncmp(env[i], arg, len) == 0 && env[i][len] == '=')
-			j++;
+		j += (ft_strncmp(env[i], arg, len) == 0 && env[i][len] == '=');
 		if (j)
 		{
 			ft_strdel(&env[i]);
@@ -93,6 +90,8 @@ int		sh_unsetenv(char *arg, char ***ptr)
 				!(env[i] = ft_strdup(env[i + j])) ? sh_exit(-1, NULL, env) : 0;
 		}
 	}
+	if (j == 0)
+		ft_putendl("Error : unable to unsetenv");
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/28 23:11:13 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/11 17:39:37 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,7 +71,7 @@ int			sh_echo(char **arg, char **env)
 			else
 			{
 				ft_putstr(sh_getenv(arg[i] + j + 1, env));
-				break;
+				break ;
 			}
 		}
 		ft_putchar(' ');

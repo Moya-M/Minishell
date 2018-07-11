@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/28 23:10:17 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/11 17:34:47 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ int		sh_builtin(char **arg, char ***env, int out)
 	else if (ft_strnstr(arg[0], "setenv", 6) && arg[0][6] == '\0')
 		return (sh_setenv(arg[1], arg[2], env, 1));
 	else if (ft_strnstr(arg[0], "unsetenv", 8) && arg[0][8] == '\0')
-		return (sh_unsetenv(arg[1], env));
+		return (sh_unsetenv(arg[1], *env));
 	else if (ft_strnstr(arg[0], "echo", 4) && arg[0][4] == '\0')
 		return (sh_echo(arg, *env));
 	else if (ft_strnstr(arg[0], "exit", 4) && arg[0][4] == '\0')

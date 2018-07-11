@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/31 15:34:18 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/11 17:39:18 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/11 17:42:53 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,7 @@ int		sh_unsetenv(char *arg, char **env)
 		}
 	}
 	if (j == 0)
-		ft_putendl("Error : unable to unsetenv");
+		return (err_shell("unsetenv : unable to unsetenv"));
 	return (0);
 }
 

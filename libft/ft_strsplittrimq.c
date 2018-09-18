@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 18:20:54 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/22 18:31:55 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/18 16:09:04 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,6 @@ static int	ft_countwords(char const *s, char c)
 			i++;
 			j++;
 		}
-		dprintf(1, "Word = %i Len = %i\n", len, j);
 	}
 	return (len);
 }
@@ -102,10 +101,4 @@ char		**ft_strsplittrimq(char const *s, char c)
 	if (!(tab = malloc(sizeof(char*) * (ft_countwords(s, c) + 1))))
 		return (NULL);
 	return (ft_split(s, tab, i, c));
-}
-
-int main()
-{
-	ft_strsplittrimq("test   bite", ' ');
-	return 0;
 }

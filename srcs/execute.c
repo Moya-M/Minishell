@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/18 18:16:12 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/18 20:53:12 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,37 +55,42 @@ int			sh_execute_path(char *path, char **arg, char **env)
 	return (-1);
 }
 
+static int	echo_loop(int i, char **arg, char **env)
+{
+	int		j;
+	int		k;
+	char	*tmp;
+
+	j = 0;
+	while (arg[i][j])
+	{
+		if (arg[i][j] != '$')
+			ft_putchar(arg[i][j++]);
+		else
+		{
+			k = 0;
+			while (arg[i][j + k] && arg[i][j + k] != ' ')
+				k++;
+			if (!(tmp = ft_strndup(arg[i] + j + 1, k - 1)))
+				return (1);
+			j += k;
+			ft_putstr(sh_getenv(tmp, env));
+			ft_strdel(&tmp);
+		}
+	}
+	return (0);
+}
+
 int			sh_echo(char **arg, char **env)
 {
-	int i;
-	int	j;
-	int	k;
+	int		i;
 
-(void)env;
 	i = 1;
-	for (int k=0;arg[k];k++)
-	{
-		dprintf(1, "%s\n", arg[k]);
-	}
 	while (arg[i])
 	{
-		j = 0;
-		k = 0;
-		/*while (arg[i][j] && arg[i][j] != '$')
-			j++;
-		write(1, &arg[i][j], k);*/
-		while (arg[i][j])
-		{
-			if (arg[i][j] != '$')
-				ft_putchar(arg[i][j++]);
-			else
-			{
-				ft_putstr(sh_getenv(arg[i] + j + 1, env));
-				ft_putstr("TEST");
-				break ;
-			}
-		}
-		ft_putchar('|');
+		if (echo_loop(i, arg, env))
+			return (1);
+		ft_putchar(' ');
 		i++;
 	}
 	ft_putstr("\n");

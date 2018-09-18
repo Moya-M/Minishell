@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/03 19:27:56 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/18 17:37:33 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/18 21:01:13 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,7 +101,7 @@ static char	**split_alloc(char *tmp)
 	}
 	y++;
 	out = malloc(sizeof(char*) * y);
-	out[y - 1] = NULL; 
+	out[y - 1] = NULL;
 	return (out);
 }
 

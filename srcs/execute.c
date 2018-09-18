@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/11 17:39:37 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/18 18:16:12 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,11 +59,21 @@ int			sh_echo(char **arg, char **env)
 {
 	int i;
 	int	j;
+	int	k;
 
+(void)env;
 	i = 1;
+	for (int k=0;arg[k];k++)
+	{
+		dprintf(1, "%s\n", arg[k]);
+	}
 	while (arg[i])
 	{
 		j = 0;
+		k = 0;
+		/*while (arg[i][j] && arg[i][j] != '$')
+			j++;
+		write(1, &arg[i][j], k);*/
 		while (arg[i][j])
 		{
 			if (arg[i][j] != '$')
@@ -71,10 +81,11 @@ int			sh_echo(char **arg, char **env)
 			else
 			{
 				ft_putstr(sh_getenv(arg[i] + j + 1, env));
+				ft_putstr("TEST");
 				break ;
 			}
 		}
-		ft_putchar(' ');
+		ft_putchar('|');
 		i++;
 	}
 	ft_putstr("\n");

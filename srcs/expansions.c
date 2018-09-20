@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/19 16:29:14 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/20 22:21:31 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/20 23:45:52 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,6 +72,15 @@ int    	sh_expansions(char **arg, char **env)
 			else
 				arg[i] = ft_strnew(0);
 			ft_strdel(&tmp);
+		}
+		if (arg[i][0] == '~')
+		{
+			tmp = arg[i];
+			if (sh_getenv("HOME", env))
+			{
+				arg[i] = ft_strjoin(sh_getenv("HOME", env), arg[i] + 1);
+				ft_strdel(&tmp);
+			}
 		}
 		i++;
 	}

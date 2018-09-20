@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/18 17:44:47 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/20 23:39:13 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 
 int		sh_builtin(char **arg, char ***env, int out)
 {
-	if (*arg == NULL)
+	if (*arg == NULL || arg[0][0] == 0)
 		return (0);
 	else if (ft_strnstr(arg[0], "cd", 2) && arg[0][2] == '\0')
 		return (sh_cd(arg, env));
@@ -67,11 +67,14 @@ int		sh_cmd(char ***env)
 	char			*line;
 	char			**arg;
 	int				i;
+	int				j;
 	static int		out = 0;
 
+	i = 0;
+	j = 0;
 	!(get_next_line(1, &line)) ? sh_exit(-1, NULL, *env) : 0;
 	!(arg = ft_strsplitq(line)) ? sh_exit(-1, NULL, *env) : 0;
-	i = 0;
+	sh_expansions(arg, *env);
 	while (arg[i])
 		i++;
 	ft_strdel(&line);
@@ -124,5 +127,5 @@ int		main(int ac, char **av, char **environ)
 		sh_prompt(env);
 		out = sh_cmd(&env);
 	}
-	return (out);
+	return (1);
 }

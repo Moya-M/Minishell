@@ -6,12 +6,13 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/03 19:27:56 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/18 21:01:46 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/20 13:40:42 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int	check_quote(const char *s)
 {

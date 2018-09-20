@@ -6,7 +6,7 @@
 #    By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/01/26 19:06:36 by mmoya        #+#   ##    ##    #+#        #
-#    Updated: 2018/06/29 00:14:04 by mmoya       ###    #+. /#+    ###.fr      #
+#    Updated: 2018/09/20 23:08:38 by mmoya       ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -20,7 +20,8 @@ SRCS =	main.c \
 		env.c \
 		error.c \
 		setenv.c \
-		execute.c
+		execute.c \
+		expansions.c
 
 OBJ = $(SRCS:.c=.o)
 

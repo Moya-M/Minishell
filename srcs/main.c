@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/20 23:39:13 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/21 16:22:51 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,19 +17,19 @@ int		sh_builtin(char **arg, char ***env, int out)
 {
 	if (*arg == NULL || arg[0][0] == 0)
 		return (0);
-	else if (ft_strnstr(arg[0], "cd", 2) && arg[0][2] == '\0')
+	else if (ft_strcmp(arg[0], "cd") == 0)
 		return (sh_cd(arg, env));
-	else if (ft_strnstr(arg[0], "pwd", 3) && arg[0][3] == '\0')
+	else if (ft_strcmp(arg[0], "pwd") == 0)
 		return (sh_pwd(*env));
-	else if (ft_strnstr(arg[0], "env", 3) && arg[0][3] == '\0')
+	else if (ft_strcmp(arg[0], "env") == 0)
 		return (sh_env(*env));
-	else if (ft_strnstr(arg[0], "setenv", 6) && arg[0][6] == '\0')
+	else if (ft_strcmp(arg[0], "setenv") == 0)
 		return (sh_setenv(arg[1], arg[2], env, 1));
-	else if (ft_strnstr(arg[0], "unsetenv", 8) && arg[0][8] == '\0')
+	else if (ft_strcmp(arg[0], "unsetenv") == 0)
 		return (sh_unsetenv(arg[1], *env));
-	else if (ft_strnstr(arg[0], "echo", 4) && arg[0][4] == '\0')
+	else if (ft_strcmp(arg[0], "echo") == 0)
 		return (sh_echo(arg, *env));
-	else if (ft_strnstr(arg[0], "exit", 4) && arg[0][4] == '\0')
+	else if (ft_strcmp(arg[0], "exit") == 0)
 		return (sh_exit(out, arg, *env));
 	else if (ft_strnstr(arg[0], "./", 2) || ft_strnstr(arg[0], "../", 3) ||
 	ft_strnstr(arg[0], "/", 1))

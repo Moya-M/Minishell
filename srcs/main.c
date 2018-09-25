@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 17:20:01 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 20:28:41 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,6 +61,26 @@ void	sh_prompt(char **env)
 	ft_strdel(&pwd);
 }
 
+static char	*sh_lineread(void)
+{
+	char 	*line;
+	char 	buf[2];
+	char 	*tmp;
+	int		ret;
+
+	line = ft_strnew(0);
+	while ((ret = read(1, buf, 1)) != 0)
+	{
+		buf[ret] = '\0';
+		if (ft_strcmp(buf, "\n") == 0)
+			break;
+		tmp = line;
+		line = ft_strjoin(line, buf);
+		ft_strdel(&tmp);
+	}
+	return (line);
+}
+
 int		sh_cmd(char ***env)
 {
 	char			*line;
@@ -71,12 +91,12 @@ int		sh_cmd(char ***env)
 
 	i = 0;
 	j = 0;
-	!(get_next_line(1, &line)) ? sh_exit(-1, NULL, *env) : 0;
+	line = sh_lineread();
 	!(arg = ft_strsplitq(line)) ? sh_exit(-1, NULL, *env) : 0;
+	ft_strdel(&line);
 	sh_expansions(arg, *env);
 	while (arg[i])
 		i++;
-	ft_strdel(&line);
 	if ((out = sh_builtin(arg, env, out)) != 0)
 	{
 		if (out == -1)

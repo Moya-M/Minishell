@@ -1,4 +1,7 @@
 a.out
 .vscode
 *.dSYM
+*.o
+minishell
+*.a
 perm

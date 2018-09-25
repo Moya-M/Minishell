@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/19 16:29:14 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/21 17:44:02 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 14:26:50 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,7 @@ static int	dollar_expansion(char **arg, char **env, int i, int j)
 	tmp = arg[i];
 	if (!(tmp2 = ft_strndup(tmp, j - 1)))
 		return (1);
+	dprintf(1, "%s\n", tmp2);
 	if (sh_getenv(arg[i] + j, env))
 	{
 		if (!(arg[i] = ft_strjoin(tmp2, sh_getenv(arg[i] + j, env))))

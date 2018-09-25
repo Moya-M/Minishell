@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 18:39:21 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 00:12:42 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 17:19:36 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,6 +25,28 @@ int		err_shell(char *err)
 	ft_putstr("minishell: ");
 	ft_putendl(err);
 	return (1);
+}
+
+int		exec_error(int err, char *tmp, char *arg)
+{
+	if (err == 0)
+	{
+		ft_putstr("minishell: command not found: ");
+		ft_putendl(arg);
+	}
+	if (err == -1)
+	{
+		ft_strdel(&tmp);
+		return (-1);
+	}
+	if (err == -2)
+	{
+		ft_putstr("minishell: permission denied: ");
+		ft_putendl(arg);
+		ft_strdel(&tmp);
+		return (-2);
+	}
+	return (-1);
 }
 
 int		cd_error(char *path)

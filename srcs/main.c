@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/30 16:43:28 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 14:14:28 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/25 17:20:01 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,13 +77,12 @@ int		sh_cmd(char ***env)
 	while (arg[i])
 		i++;
 	ft_strdel(&line);
-	if ((out = sh_builtin(arg, env, out)) == -1)
+	if ((out = sh_builtin(arg, env, out)) != 0)
 	{
-		ft_putstr("minishell: command not found: ");
-		ft_putendl(arg[0]);
-	}
-	if (out == -1)
+		if (out == -1)
+			exec_error(0, NULL, arg[0]);
 		out = 1;
+	}
 	while (--i >= 0)
 		ft_strdel(&arg[i]);
 	free(arg);

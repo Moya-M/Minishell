@@ -1,5 +1,4 @@
-.vscode/launch.json
 a.out
-.vscode/settings.json
-a.out.dSYM/Contents/Info.plist
-minish
+.vscode
+*.dSYM
+perm

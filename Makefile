@@ -6,7 +6,7 @@
 #    By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/01/26 19:06:36 by mmoya        #+#   ##    ##    #+#        #
-#    Updated: 2018/09/25 23:37:01 by mmoya       ###    #+. /#+    ###.fr      #
+#    Updated: 2018/09/26 18:13:07 by mmoya       ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -33,37 +33,24 @@ LIBPATH = ./libft/
 
 LIB = libft.a
 
-MSG_LIB= "\033[1;42m┎┰─────╢ LIBFT ║\033[0m"
+.PHONY : all clean fclean re lib
 
-MSG_LIBEND= "\033[1;42m┖┸─────╢ END ║\033[0m"
+all: lib $(NAME)
 
-.PHONY : all clean fclean re
+$(NAME): $(OBJ) $(LIBPATH)$(LIB)
+	gcc $(FLAGS) $(HEAD) $(LIBPATH)$(LIB) $(OBJ) -o $(NAME)
 
-all: $(NAME)
-
-$(NAME): $(LIBPATH)$(LIB) $(OBJ)
-	@gcc $(FLAGS) $(HEAD) $(LIBPATH)$(LIB) $(OBJ) -o $(NAME)
-	@echo "\033[1;44m┌──────────────────────────────┐\033[0m"
-	@echo "\033[1;44m│        minishell DONE        │\033[0m"
-	@echo "\033[1;44m└──────────────────────────────┘\033[0m"
-
-$(LIBPATH)$(LIB):
-	@echo $(MSG_LIB)
+lib:
 	@$(MAKE) -C $(LIBPATH)
 
 %.o: $(SRCPATH)%.c ./includes/minishell.h
-	@echo "\033[1mCompiled :	\033[34m\"$*\"\033[0m"
-	@gcc $(FLAGS) $(HEAD) -c $< -o $@
+	gcc $(FLAGS) $(HEAD) -c $< -o $@
 
 clean:
-	@/bin/rm -f $(OBJ)
-	@echo "\033[1mRemoved :  \033[31m\"*.o\"\033[0m"
-	@echo $(MSG_LIB)
-	@$(MAKE) fclean -C $(LIBPATH)
-	@echo $(MSG_LIBEND)
+	/bin/rm -f $(OBJ)
+	$(MAKE) fclean -C $(LIBPATH)
 
 fclean: clean
-	@/bin/rm -f $(NAME)
-	@echo "\033[1mRemoved :  \033[31m\"$(NAME)\"\033[0m"
+	/bin/rm -f $(NAME)
 
 re: fclean all

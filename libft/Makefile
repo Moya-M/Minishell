@@ -6,7 +6,7 @@
 #    By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/09 17:06:46 by mmoya        #+#   ##    ##    #+#        #
-#    Updated: 2018/09/18 17:40:37 by mmoya       ###    #+. /#+    ###.fr      #
+#    Updated: 2018/09/26 17:35:27 by mmoya       ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -31,26 +31,18 @@ ft_strsplitq.c
 
 OBJ = $(SRC:.c=.o)
 
-BOX = "\033[1;42m┃┃\033[0m"
-
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEAD) Makefile
-	@ar rcs $(NAME) $(OBJ)
-	@echo "\033[1;42m┃┖─────────────────────────────┐\033[0m"
-	@echo "\033[1;42m┃          libft DONE          │\033[0m"
-	@echo "\033[1;42m┖──────────────────────────────┘\033[0m"
+	ar rcs $(NAME) $(OBJ)
 
 %.o: $(SRCS)%.c
-	@gcc -Wall -Wextra -Werror -c $*.c
-	@echo $(BOX) "\033[1mCompiled :	\033[34m\"$*\"\033[0m"
+	gcc -Wall -Wextra -Werror -c $*.c
 
 clean:
-	@rm -f $(OBJ)
-	@echo $(BOX) "\033[1mRemoved :	\033[31m\"*.o\"\033[0m"
+	rm -f $(OBJ)
 
 fclean: clean
-	@rm -f $(NAME)
-	@echo $(BOX) "\033[1mRemoved :	\033[31m$(NAME)\033[0m"
+	rm -f $(NAME)
 
 re: fclean all

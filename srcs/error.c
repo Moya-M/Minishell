@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 18:39:21 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/26 16:12:48 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 18:18:33 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,10 +53,10 @@ int		cd_error(char *path)
 {
 	struct stat path_stat;
 
-	if (access(path, R_OK))
+	if (path == NULL || access(path, R_OK))
 	{
 		ft_putstr_fd("cd: ", 2);
-		if (access(path, 0))
+		if (path == NULL || access(path, 0))
 			ft_putstr_fd("no such file or directory: ", 2);
 		else
 			ft_putstr_fd("permission denied: ", 2);
@@ -86,7 +86,8 @@ char	*cd_checkenv(char **arg, char ***env, int *b)
 	{
 		*b = 1;
 		ft_strdel(&new);
-		if ((new = ft_strdup(sh_getenv("OLDPWD", *env))) == 0)
+		if (sh_getenv("OLDPWD", *env) != NULL &&
+		(new = ft_strdup(sh_getenv("OLDPWD", *env))) == 0)
 		{
 			new = ft_strdup(".");
 			arg[1] = new;

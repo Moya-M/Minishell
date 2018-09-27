@@ -6,7 +6,7 @@
 #    By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/01/26 19:06:36 by mmoya        #+#   ##    ##    #+#        #
-#    Updated: 2018/09/26 18:13:07 by mmoya       ###    #+. /#+    ###.fr      #
+#    Updated: 2018/09/27 15:31:09 by mmoya       ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -37,13 +37,13 @@ LIB = libft.a
 
 all: lib $(NAME)
 
-$(NAME): $(OBJ) $(LIBPATH)$(LIB)
+$(NAME): $(OBJ) $(LIBPATH)$(LIB) Makefile
 	gcc $(FLAGS) $(HEAD) $(LIBPATH)$(LIB) $(OBJ) -o $(NAME)
 
 lib:
 	@$(MAKE) -C $(LIBPATH)
 
-%.o: $(SRCPATH)%.c ./includes/minishell.h
+%.o: $(SRCPATH)%.c ./includes/minishell.h Makefile
 	gcc $(FLAGS) $(HEAD) -c $< -o $@
 
 clean:

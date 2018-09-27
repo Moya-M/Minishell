@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/25 21:37:02 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/27 15:44:07 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,4 +95,24 @@ int			sh_exit(int out, char **arg, char **env)
 	free(env);
 	exit(out);
 	return (out);
+}
+
+char		*sh_lineread(void)
+{
+	char	*line;
+	char	buf[2];
+	char	*tmp;
+	int		ret;
+
+	line = ft_strnew(0);
+	while ((ret = read(1, buf, 1)) != 0)
+	{
+		buf[ret] = '\0';
+		if (ft_strcmp(buf, "\n") == 0)
+			break ;
+		tmp = line;
+		line = ft_strjoin(line, buf);
+		ft_strdel(&tmp);
+	}
+	return (line);
 }

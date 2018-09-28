@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 15:37:30 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/27 15:44:07 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 17:45:28 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -108,6 +108,8 @@ char		*sh_lineread(void)
 	while ((ret = read(1, buf, 1)) != 0)
 	{
 		buf[ret] = '\0';
+		if (buf[0] == 27)
+			buf[0] = 0;
 		if (ft_strcmp(buf, "\n") == 0)
 			break ;
 		tmp = line;

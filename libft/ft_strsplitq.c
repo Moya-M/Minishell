@@ -6,7 +6,7 @@
 /*   By: mmoya <mmoya@student.le-101.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/03 19:27:56 by mmoya        #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/28 17:28:53 by mmoya       ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/28 19:37:36 by mmoya       ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,14 +39,14 @@ static void	split_count(char *tmp, int *i, int *y)
 	{
 		(*y)++;
 		(*i)++;
-		while (tmp[(*i)++] != '"' && tmp[i[0]])
+		while (tmp[(*i)++] != 0 && tmp[(*i)++] != '"' && tmp[i[0]])
 			;
 	}
 	else if (tmp[(*i)] == '\'')
 	{
 		(*y)++;
 		(*i)++;
-		while (tmp[(*i)++] != '\'' && tmp[i[0]])
+		while (tmp[(*i)++] != 0 && tmp[(*i)++] != '\'' && tmp[i[0]])
 			;
 	}
 	else if (ft_isprint(tmp[(*i)]) && tmp[(*i)] != ' ')
@@ -99,6 +99,8 @@ static char	**split_alloc(char *tmp)
 				i++;
 		else
 			split_count(tmp, &i, &y);
+		if (i > (int)ft_strlen(tmp))
+			break ;
 	}
 	y++;
 	out = malloc(sizeof(char*) * y);
